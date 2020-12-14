@@ -1,0 +1,27 @@
+{
+  "name": "react-ssr-template",
+  "version": "0.0.1",
+  "description": "react-ssr-template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ykst615/react-ssr-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ykst615/react-ssr-template/issues"
+  },
+  "homepage": "https://github.com/ykst615/react-ssr-template#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.10.1",
+    "webpack-cli": "^4.2.0"
+  }
+}
