@@ -1,17 +1,21 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter, Route } from 'react-router';
+import { StaticRouter } from 'react-router';
 
 import App from '../../client/router/index';
-import routeList, { matchRoute } from '../../client/router/route-config';
+import routeList from '../../client/router/route-config';
+import matchRoute from '../../share/match-route';
 
 export default async (ctx, next) => {
   try {
     const path = ctx.request.path;
 
-    let targetRoute = matchRoute(ctx, routeList);
+    //查找到的目标路由对象
+    let matchResult = matchRoute(path, routeList);
+    let { targetRoute, targetMatch } = matchResult;
 
-    let fetchDataFn = targetRoute && targetRoute.component.getInitialProps;
+    //得到数据
+    let fetchDataFn = targetRoute.component.getInitialProps;
     let fetchResult = {};
     if (fetchDataFn) {
       fetchResult = await fetchDataFn();

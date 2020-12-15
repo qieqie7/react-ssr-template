@@ -1,4 +1,5 @@
 import React from 'react';
+
 import tempData from './data';
 
 export default class Index extends React.Component {
@@ -22,20 +23,16 @@ export default class Index extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(props)
-    props.initialData = (props.staticContext && props.staticContext.initialData) || {};
-    this.state = props.initialData;
-  }
-
-  handlerClick() {
-    alert('一起来玩 react ssr 啊111');
+    let initialData = props.staticContext ? props.staticContext.initialData : props.initialData;
+    this.state = initialData;
   }
 
   render() {
     const { code, data } = this.state;
+
     return (
       <>
-        <h1 onClick={this.handlerClick}>click here!</h1>
+        <h1>这里是列表页</h1>
         <div>
           {data &&
             data.map((item, index) => {

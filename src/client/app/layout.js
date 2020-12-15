@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 export default class Index extends React.Component {
   constructor(props) {
@@ -9,8 +9,12 @@ export default class Index extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/index">首页</Link>
-        <Link to="/list">列表页</Link>
+        <NavLink to="/index" style={{ marginLeft: '10px' }}>
+          首页
+        </NavLink>
+        <NavLink style={{ marginLeft: '10px' }} to="/list">
+          列表页
+        </NavLink>
         <div>{this.props.children}</div>
       </div>
     );

@@ -1,4 +1,5 @@
 const path = require('path');
+const { webpack } = require('webpack');
 
 //定一个通用的路径转换方法
 const resolvePath = pathStr => path.resolve(__dirname, pathStr);
@@ -17,6 +18,11 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
       },
+    ],
+    plugins: [
+      new webpack.DefinePlugin({
+        __SERVER__: false,
+      }),
     ],
   },
 };
