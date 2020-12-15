@@ -6,7 +6,7 @@ export default class Index extends React.Component {
   }
 
   handlerClick() {
-    alert('一起来玩 react ssr 啊');
+    alert('一起来玩 react ssr 啊111');
   }
 
   render() {
