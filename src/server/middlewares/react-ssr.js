@@ -15,7 +15,7 @@ export default async (ctx, next) => {
     let { targetRoute, targetMatch } = matchResult;
 
     //得到数据
-    let fetchDataFn = targetRoute.component.getInitialProps;
+    let fetchDataFn = targetRoute && targetRoute.component.getInitialProps;
     let fetchResult = {};
     if (fetchDataFn) {
       fetchResult = await fetchDataFn();
