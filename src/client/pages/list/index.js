@@ -23,8 +23,27 @@ export default class Index extends React.Component {
 
   constructor(props) {
     super(props);
-    let initialData = props.staticContext ? props.staticContext.initialData : props.initialData;
+
+    let initialData = null; //初始化数据
+    if (__SERVER__) {
+      //如果是当然是服务端执行
+      initialData = props.staticContext.initialData || {};
+    } else {
+      //客户端渲染
+      initialData = props.initialData || {};
+    }
     this.state = initialData;
+  }
+
+  componentDidMount() {
+    if (!this.state.data) {
+      //如果没有数据，则进行数据请求
+      Index.getInitialProps().then(res => {
+        this.setState({
+          data: res.data || [],
+        });
+      });
+    }
   }
 
   render() {

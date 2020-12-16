@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
-export default class Index extends React.Component {
+class Index extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -9,14 +10,12 @@ export default class Index extends React.Component {
   render() {
     return (
       <div>
-        <NavLink to="/index" style={{ marginLeft: '10px' }}>
-          首页
-        </NavLink>
-        <NavLink style={{ marginLeft: '10px' }} to="/list">
-          列表页
-        </NavLink>
-        <div>{this.props.children}</div>
+        <NavLink to="/index" style={{ marginLeft: '10px' }}>首页</NavLink>
+        <NavLink style={{ marginLeft: '10px' }} to="/list">列表页</NavLink>
+        {this.props.children}
       </div>
     );
   }
 }
+
+export default withRouter(Index);
