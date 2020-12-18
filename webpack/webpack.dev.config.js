@@ -18,6 +18,20 @@ module.exports = {
         loader: 'babel-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /.(le|c)ss$/,
+        use: [
+          {
+            loader: 'css-loader',
+          },
+          {
+            loader: 'postcss-loader',
+          },
+          {
+            loader: 'less-loader',
+          },
+        ],
+      },
     ],
   },
   plugins: [

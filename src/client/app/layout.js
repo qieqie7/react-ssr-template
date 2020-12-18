@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import './layout.css';
 
 export default class Index extends React.Component {
   constructor(props) {
