@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import './layout.css';
 
 class Index extends React.Component {
   constructor(props) {
