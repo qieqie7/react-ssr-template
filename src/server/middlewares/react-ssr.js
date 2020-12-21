@@ -44,11 +44,12 @@ export default async (ctx, next) => {
   <head>
     <meta charset="UTF-8">
     <title>my react ssr</title>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
   </head>
   <body>
     <div id="root">${html}</div>
     <textarea id="ssrTextInitData" style="display:none;">${JSON.stringify(fetchResult)}</textarea>
-    <script type="text/javascript"src="index.js"></script>
+    <script type="text/javascript"src="main.js"></script>
   </body>
 </html>
 `;
