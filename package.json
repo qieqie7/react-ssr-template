@@ -7,7 +7,8 @@
     "dev": "node webpack/scripts/start.js",
     "fe:watch": "webpack --config  ./webpack/webpack.dev.config.js --watch",
     "svr:watch": "node ./webpack/scripts/svr-code-watch.js",
-    "babel-node": "babel src -d dist/src"
+    "babel-node": "babel src -d dist/src",
+    "client:build": "NODE_ENV=production webpack --config ./webpack/webpack.prod.config.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-arrow-functions": "^7.12.1",
     "@babel/plugin-transform-async-to-generator": "^7.12.1",
     "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.12.10",
@@ -52,6 +54,7 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^5.10.1",
     "webpack-cli": "^4.2.0",
+    "webpack-manifest-plugin": "^3.0.0",
     "webpack-node-externals": "^2.5.2"
   }
 }
