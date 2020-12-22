@@ -42,7 +42,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      __SERVER__: false,
+      __IS_PROD: true,
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
