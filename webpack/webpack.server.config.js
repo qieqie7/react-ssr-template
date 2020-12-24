@@ -27,6 +27,12 @@ module.exports = {
   plugins: [
     new webpack.DefinePlugin({
       __SERVER__: true,
+      __IS_PROD__: isProd,
     }),
   ],
+  resolve: {
+    alias: {
+      '@dist': resolvePath('../dist')
+    }
+  }
 };

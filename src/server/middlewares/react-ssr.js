@@ -5,6 +5,11 @@ import { StaticRouter } from 'react-router';
 import App from '../../client/router/index';
 import routeList from '../../client/router/route-config';
 import matchRoute from '../../share/match-route';
+//导入资源处理库
+import getAssets from '../common/assets';
+
+//得到静态资源
+const assetsMap = getAssets();
 
 export default async (ctx, next) => {
   try {
@@ -44,12 +49,14 @@ export default async (ctx, next) => {
   <head>
     <meta charset="UTF-8">
     <title>my react ssr</title>
-    <link rel="stylesheet" type="text/css" href="/main.css" />
+    <!-- 输出 css 资源 -->
+    ${assetsMap.css.join('')}
   </head>
   <body>
     <div id="root">${html}</div>
     <textarea id="ssrTextInitData" style="display:none;">${JSON.stringify(fetchResult)}</textarea>
-    <script type="text/javascript"src="main.js"></script>
+    <!-- 输出 js 资源 -->
+    ${assetsMap.js.join('')}
   </body>
 </html>
 `;
