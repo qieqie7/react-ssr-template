@@ -8,11 +8,15 @@ const resolvePath = pathStr => path.resolve(__dirname, pathStr);
 module.exports = {
   mode: 'development',
   entry: {
-    main: resolvePath('../src/client/app/index.js'), //入口文件
+    main: [
+      'react-hot-loader/patch',
+      resolvePath('../src/client/app/index.js')
+    ], //入口文件
   },
   output: {
     filename: '[name].js', //设置打包后的文件名
     path: resolvePath('../dist/static'), //设置构建结果的输出目录
+    publicPath: 'http://localhost:9002/',
   },
   module: {
     rules: [
@@ -48,4 +52,9 @@ module.exports = {
       filename: '[name].css',
     }),
   ],
+  resolve: {
+    alias: {
+        'react-dom': '@hot-loader/react-dom'
+    }
+  }
 };

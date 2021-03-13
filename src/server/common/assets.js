@@ -1,6 +1,6 @@
 //生产环境中 静态资源的处理
 module.exports = function () {
-  let devHost = '//localhost:9001';
+  let devHost = '//localhost:9002';
 
   let jsFiles = ['libs.js', 'main.js'];
   let cssFiles = ['main.css'];
