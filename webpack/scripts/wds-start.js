@@ -4,6 +4,8 @@ const clientConfig = require('../webpack.dev.config');
 const getWbsConfig = require('./webpack-dev-server.config');
 const chalk = require('chalk');
 
+const { wdsPort } = require('../../src/share/pro-config');
+
 function getWebPackCompiler() {
     return webpack(clientConfig);
 }
@@ -15,15 +17,14 @@ function createWdsServer() {
         console.log('\n wds server compile done');
     });
 
-    return new WebpackDevServer(compiler, getWbsConfig(undefined, clientConfig.output.publicPath));
+    return new WebpackDevServer(compiler, getWbsConfig(wdsPort, clientConfig.output.publicPath));
 }
 
 
 function runWdsServer() {
 
     let devServer = createWdsServer();
-    let port = 9002;//wds 服务端口
-    devServer.listen(port,'localhost',err => {
+    devServer.listen(wdsPort, 'localhost', err => {
         if (err) {
             return console.log(err);
         }

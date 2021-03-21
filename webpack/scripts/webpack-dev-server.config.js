@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = function (port, publicPath) {
     return {
         quiet: true, //不显示构建日志
+        port, //wds 服务端口 
         contentBase: path.resolve(__dirname, '../../dist/static'),
         publicPath: publicPath, //必须和 webpack.dev.config 配置一致
         hot: true,
@@ -17,5 +18,8 @@ module.exports = function (port, publicPath) {
             //指定毫秒为单位进行轮询
             poll: 500,
         },
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        }
     };
 };
