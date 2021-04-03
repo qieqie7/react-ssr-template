@@ -7,6 +7,7 @@ import routeList from '../../client/router/route-config';
 import matchRoute from '../../share/match-route';
 //导入资源处理库
 import getAssets from '../common/assets';
+import getStaticRoutes from '../common/get-static-routes'
 
 //得到静态资源
 const assetsMap = getAssets();
@@ -22,8 +23,10 @@ export default async (ctx, next) => {
 
     console.log('ctx.request.path.', ctx.request.path);
 
+    const staticRoutesList = await getStaticRoutes(routeList);
+
     //查找到的目标路由对象
-    let matchResult = matchRoute(path, routeList);
+    let matchResult = matchRoute(path, staticRoutesList);
     let { targetRoute, targetMatch } = matchResult;
 
     //得到数据
@@ -39,7 +42,7 @@ export default async (ctx, next) => {
 
     const html = renderToString(
       <StaticRouter location={path} context={context}>
-        <App routeList={routeList}></App>
+        <App routeList={staticRoutesList}></App>
       </StaticRouter>,
     );
 

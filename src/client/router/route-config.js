@@ -1,30 +1,24 @@
 import React from 'react';
-import Index from '../pages/index';
-import List from '../pages/list';
+import AsyncLoader from './async-loader';
 
 function pageNotFound() {
-  return <div>404页面</div>;
+    return <div>404页面</div>;
 }
 
 export default [
-  {
-    path: '/',
-    component: Index,
-    exact: true,
-  },
-  {
-    path: '/index',
-    component: Index,
-    exact: true, //是否精确匹配
-  },
-  {
-    path: '/list',
-    component: List,
-    exact: true,
-  },
-  {
-    path: '*',
-    component: pageNotFound,
-    exact: true,
-  },
+    {
+        path: ['/', '/index'],
+        component: AsyncLoader(() => import('../pages/index')),
+        exact: true,
+    },
+    {
+        path: '/list',
+        component: AsyncLoader(() => import('../pages/list')),
+        exact: true,
+    },
+    {
+        path: '*',
+        component: pageNotFound,
+        exact: true,
+    },
 ];
