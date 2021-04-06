@@ -10,18 +10,9 @@ function Page404() {
 const App = ({ routeList }) => (
     <Layout>
         <Switch>
-            {routeList.map(item =>
-                item.initialData ? (
-                    <Route
-                        key={item.path}
-                        exact={item.exact}
-                        path={item.path}
-                        render={props => <item.component {...props} initialData={item.initialData} />}
-                    />
-                ) : (
-                    <Route key={item.path} {...item} />
-                ),
-            )}
+            {routeList.map(item => (
+                <Route key={item.path} {...item} />
+            ))}
             <Route to="*" component={Page404} />
         </Switch>
     </Layout>

@@ -1,16 +1,25 @@
 import React from 'react';
+import DataInitial from '../../components/DataInitial/DataInitial';
 import './index.less';
 
-export default class Index extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function Index(props) {
+    function handlerClick() {
+        alert('一起来玩 react ssr 啊111');
+    }
 
-  handlerClick() {
-    alert('一起来玩 react ssr 啊111');
-  }
-
-  render() {
-    return <h1 onClick={this.handlerClick}>click here!1213</h1>;
-  }
+    return <h1 onClick={handlerClick}>click here!1213</h1>;
 }
+
+Index.getInitialProps = ctx => {
+    return {
+        page: {
+            tdk: {
+                title: '首页 - koa-react-ssr',
+                keywords: '关键词 - koa-react-ssr',
+                description: '描述',
+            },
+        },
+    };
+};
+
+export default DataInitial(Index);

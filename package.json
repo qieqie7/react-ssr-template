@@ -10,6 +10,7 @@
     "babel-node": "babel src -d dist/src",
     "client:build": "NODE_ENV=production webpack --config ./webpack/webpack.prod.config.js",
     "server:build": "NODE_ENV=production webpack --config  ./webpack/webpack.server.config.js",
+    "build": "npm run client:build && npm run server:build",
     "prod:start": "node ./dist/server/app.js",
     "wds:watch": "BABEL_ENV=development node ./webpack/scripts/wds-start.js"
   },

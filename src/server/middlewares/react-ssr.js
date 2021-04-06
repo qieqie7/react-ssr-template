@@ -7,46 +7,47 @@ import routeList from '../../client/router/route-config';
 import matchRoute from '../../share/match-route';
 //导入资源处理库
 import getAssets from '../common/assets';
-import getStaticRoutes from '../common/get-static-routes'
+import getStaticRoutes from '../common/get-static-routes';
 
 //得到静态资源
 const assetsMap = getAssets();
-
 export default async (ctx, next) => {
-  try {
-    const path = ctx.request.path;
+    try {
+        const path = ctx.request.path;
 
-    if (path.indexOf('.') > -1) {
-      ctx.body = null;
-      return next();
-    }
+        if (path.indexOf('.') > -1) {
+            ctx.body = null;
+            return next();
+        }
 
-    console.log('ctx.request.path.', ctx.request.path);
+        console.log('ctx.request.path.', ctx.request.path);
 
-    const staticRoutesList = await getStaticRoutes(routeList);
+        const staticRoutesList = await getStaticRoutes(routeList);
 
-    //查找到的目标路由对象
-    let matchResult = matchRoute(path, staticRoutesList);
-    let { targetRoute, targetMatch } = matchResult;
+        //查找到的目标路由对象
+        let matchResult = matchRoute(path, staticRoutesList);
+        let { targetRoute, targetMatch } = matchResult;
 
-    //得到数据
-    let fetchDataFn = targetRoute && targetRoute.component.getInitialProps;
-    let fetchResult = {};
-    if (fetchDataFn) {
-      fetchResult = await fetchDataFn();
-    }
+        //得到数据
+        let fetchDataFn = targetRoute && targetRoute.component.getInitialProps;
+        let fetchResult = {};
+        if (fetchDataFn) {
+            fetchResult = await fetchDataFn({
+                match: targetMatch,
+            });
+        }
 
-    const context = {
-      initialData: fetchResult,
-    };
+        const context = {
+            initialData: fetchResult,
+        };
 
-    const html = renderToString(
-      <StaticRouter location={path} context={context}>
-        <App routeList={staticRoutesList}></App>
-      </StaticRouter>,
-    );
+        const html = renderToString(
+            <StaticRouter location={path} context={context}>
+                <App routeList={staticRoutesList}></App>
+            </StaticRouter>,
+        );
 
-    ctx.body = `
+        ctx.body = `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -64,8 +65,8 @@ export default async (ctx, next) => {
 </html>
 `;
 
-    await next();
-  } catch (error) {
-    console.log(error);
-  }
+        await next();
+    } catch (error) {
+        console.log(error);
+    }
 };

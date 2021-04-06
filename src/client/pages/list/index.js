@@ -1,70 +1,58 @@
 import React from 'react';
-
+import DataInitial from '../../components/DataInitial/DataInitial';
 import tempData from './data';
 
-export default class Index extends React.Component {
-  static async getInitialProps() {
-    //模拟数据请求方法
-    const fetchData = () => {
-      return new Promise(resolve => {
-        setTimeout(() => {
-          resolve({
-            code: 0,
-            data: tempData,
-          });
-        }, 100);
-      });
-    };
+class Index extends React.Component {
+    static async getInitialProps() {
+        //模拟数据请求方法
+        const fetchData = () => {
+            console.log('List fetchData')
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve({
+                        code: 0,
+                        data: tempData,
+                    });
+                }, 1000);
+            });
+        };
 
-    let res = await fetchData();
+        let res = await fetchData();
 
-    return res;
-  }
-
-  constructor(props) {
-    super(props);
-
-    let initialData = null; //初始化数据
-    if (__SERVER__) {
-      //如果是当然是服务端执行
-      initialData = props.staticContext.initialData || {};
-    } else {
-      //客户端渲染
-      initialData = props.initialData || {};
+        return {
+            fetchData: res,
+            page: {
+                tdk: {
+                    title: '列表页 - react ssr',
+                    keywords: '前端技术江湖',
+                    description: '关键词',
+                },
+            },
+        };
     }
-    this.state = initialData;
-  }
 
-  componentDidMount() {
-    if (!this.state.data) {
-      //如果没有数据，则进行数据请求
-      Index.getInitialProps().then(res => {
-        this.setState({
-          data: res.data || [],
-        });
-      });
-    }
-  }
+    render() {
+        const {fetchData,page} = this.props.initialData;
+        const { code, data } = fetchData||{};
 
-  render() {
-    const { code, data } = this.state;
-
-    return (
-      <>
-        <h1>这里是列表页</h1>
-        <div>
-          {data &&
-            data.map((item, index) => {
-              return (
-                <div key={index}>
-                  <h3>{item.title}</h3>
-                  <p>{item.desc}</p>
+        return (
+            <>
+                <h1>这里是列表页</h1>
+                <div>
+                    {data &&
+                        data.map((item, index) => {
+                            return (
+                                <div key={index}>
+                                    <h3>{item.title}</h3>
+                                    <p>{item.desc}</p>
+                                </div>
+                            );
+                        })}
+                    {!data && <div>暂无数据</div>}
                 </div>
-              );
-            })}
-          {!data && <div>暂无数据</div>}
-        </div>
-      </>
-    );
-  }
+            </>
+        );
+    }
 }
+
+export default DataInitial(Index);

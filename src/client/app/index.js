@@ -5,13 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import App from '../router/index';
 import routeList from '../router/route-config';
 import matchRoute from '../../share/match-route';
-import proConfig from '../../share/pro-config'
+import proConfig from '../../share/pro-config';
+import { setClientInitial } from '../utils/isClientInitial';
+
+setClientInitial(false);
 
 function clientRender() {
-    //初始数据
-    let initialData = {};
     try {
-        initialData = JSON.parse(document.getElementById('ssrTextInitData').value);
+        window.__initialData__ = JSON.parse(document.getElementById('ssrTextInitData').value);
     } catch (error) {
         console.log('initialData 初始化失败');
     }
@@ -22,8 +23,6 @@ function clientRender() {
 
     if (targetRoute) {
         //设置组件初始化数据
-        targetRoute.initialData = initialData;
-
         if (targetRoute.component[proConfig.asyncComponentKey]) {
             targetRoute
                 .component()
@@ -31,7 +30,6 @@ function clientRender() {
                 .then(res => {
                     //异步组件加载完成后再渲染页面
                     console.log('异步组件加完成');
-
                     //加载完成再执行 dom 挂载
                     renderDom(routeList);
                 });
